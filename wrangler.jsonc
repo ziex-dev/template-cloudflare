@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "ziex_app",
+	"name": "template",
 	"main": "app/main.ts",
 	"compatibility_date": "2026-03-10",
 	"compatibility_flags": [
