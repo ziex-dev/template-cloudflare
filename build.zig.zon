@@ -1,0 +1,17 @@
+.{
+    .name = .ziex_app,
+    .version = "0.0.0",
+    .fingerprint = 0x7246d8c908f650a4,
+    .minimum_zig_version = "0.17.0",
+    .dependencies = .{
+        .ziex = .{
+            .url = "git+https://github.com/ziex-dev/ziex?ref=v0.1.0-dev.1568#95e895d23b127aaed7b45fa88271dc949d3b162d",
+            .hash = "ziex-0.1.0-dev-Z3YcvcgVnAFEiPkqt2exuI0SYnsm_t2brH5FUaAcDNZy",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "app",
+    },
+}
