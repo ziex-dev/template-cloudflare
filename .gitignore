@@ -1,0 +1,14 @@
+# Zig
+.zig-cache
+zig-out
+zig-pkg/
+
+# ZX
+/dist
+/bundle
+
+# Node.js
+node_modules
+
+# Cloudflare
+.wrangler
