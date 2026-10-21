@@ -1,0 +1,78 @@
+const demos = [_]Feature{
+    .{ .title = "Events", .blurb = "Stateful click handlers on the client or server.", .href = "events" },
+    .{ .title = "Forms", .blurb = "Typed form input with server state and validation.", .href = "form" },
+    .{ .title = "Actions", .blurb = "Call Zig functions straight from a form.", .href = "actions" },
+    .{ .title = "Database", .blurb = "Built-in SQLite with typed rows.", .href = "db" },
+    .{ .title = "Key-Value", .blurb = "Typed storage with optional expiry.", .href = "kv" },
+};
+
+const features = [_]Feature{
+    .{ .title = "File System Routing", .blurb = "Folders become routes, page.zx becomes a page." },
+    .{ .title = "API Routes", .blurb = "Drop a route.zig to handle GET, POST and more." },
+    .{ .title = "Deploy Anywhere", .blurb = "Native binary, static export, or edge via WASI." },
+};
+
+const Feature = struct { title: []const u8, blurb: []const u8, href: []const u8 = "" };
+
+pub fn Page(ctx: zx.PageContext) !zx.Component {
+    const query = ctx.request.queries;
+
+    if (query.get("reset")) |_|
+        count = 0
+    else if (query.get("increment")) |_|
+        count += 1
+    else if (query.get("decrement")) |_|
+        count -= 1
+    else
+        count += 1;
+
+    return (
+        <main @allocator={ctx.arena}>
+            <div class="hero">
+                <h1>Build full-stack web apps with Zig.</h1>
+                <p>Declarative UI components using familiar patterns, with full access to Zig's control flow.</p>
+                <div class="actions">
+                    <a class="btn primary" href={zx.info.homepage ++ "/learn"} target="_blank">Read the Docs</a>
+                    <a class="btn" href={zx.info.repository} target="_blank">GitHub</a>
+                </div>
+            </div>
+
+            <section class="card live">
+                <div>
+                    <h3>Hybrid Rendering</h3>
+                    <p>Rendered on the server, hydrated on the client, kept in sync.</p>
+                </div>
+                <CounterComponent @client count={count} />
+            </section>
+
+            <section class="category">
+                <h2>Demos</h2>
+                <div class="grid">
+                    {for (demos) |f| (
+                        <a href={f.href} class="card demo">
+                            <h3>{f.title} →</h3>
+                            <p>{f.blurb}</p>
+                        </a>
+                    )}
+                </div>
+            </section>
+
+            <section class="category">
+                <h2>Built in</h2>
+                <div class="grid">
+                    {for (features) |f| (
+                        <div class="card">
+                            <h3>{f.title}</h3>
+                            <p>{f.blurb}</p>
+                        </div>
+                    )}
+                </div>
+            </section>
+        </main>
+    );
+}
+
+var count: i128 = 0;
+
+const zx = @import("zx");
+pub const CounterComponent = @import("./client.zx").CounterComponent;
